@@ -5,6 +5,7 @@ describe User do
   subject { @user }
   it { should respond_to(:first_name) }
   it { should respond_to(:last_name) }
+  it { should respond_to(:admin) }
   it { should be_valid }
 
   describe "with empty first name" do
@@ -23,7 +24,6 @@ describe User do
     before { @user.last_name = "a" * 101 }
     it { should_not be_valid }
   end
-
   describe "save with valid information" do
     before { @user.save }
     it { should be_valid }
