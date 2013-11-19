@@ -8,7 +8,7 @@
 .secret
 
 # Ignore swp files
-.sw*
+*.sw*
 
 # Ignore bundler config.
 /.bundle
