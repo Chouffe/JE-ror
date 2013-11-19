@@ -42,7 +42,7 @@ describe "User Pages" do
         fill_in "Mot de passe", with: user.password
         click_button submit
       end
-      it { should have_content("Lorem Ipsum") }
+      it { should have_title("Accueil") }
     end
   end
 
