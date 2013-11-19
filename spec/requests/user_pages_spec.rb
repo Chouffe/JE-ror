@@ -18,6 +18,8 @@ describe "User Pages" do
         fill_in "Email", with: "user@example.com"
         fill_in "Mot de passe", with: "topsecret"
         fill_in "Confirmation du mot de passe", with: "topsecret"
+        fill_in "Prénom", with: "test"
+        fill_in "Nom", with: "michel"
       end
       it "Should create a user" do
         expect { click_button submit }.to change(User, :count).by(1)
@@ -43,4 +45,17 @@ describe "User Pages" do
       it { should have_content("Lorem Ipsum") }
     end
   end
+
+  # describe "Edit User Page" do
+  #   before do
+  #     @request.env["devise.mapping"] = Devise.mappings[:user]
+  #     user = FactoryGirl.create(:user)
+  #     user.confirm!
+  #     sign_in user
+  #     visit edit_user_registration_path
+  #     fill_in "Prénom", with: "Jesus"
+  #     click_button submit
+  #   end
+  #   it { should have_content("updated") } 
+  # end
 end

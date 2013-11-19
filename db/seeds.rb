@@ -7,5 +7,5 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 puts 'USERS'
-User.create :email => ENV["GMAIL_USERNAME"], :password => 'topsecret', :password_confirmation => 'topsecret'
+User.create :email => ENV["GMAIL_USERNAME"], :password => 'topsecret', :password_confirmation => 'topsecret', :first_name => 'Chuck', :last_name => 'Norris'
 puts 'Admin created'

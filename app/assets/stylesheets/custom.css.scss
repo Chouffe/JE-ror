@@ -64,22 +64,22 @@ p {
 
 
 /* header */
-
-#logo {
-  float: left;
-  margin-right: 10px;
-  font-size: 1.7em;
-  color: white;
-  text-transform: uppercase;
-  letter-spacing: -1px;
-  padding-top: 9px;
-  font-weight: bold;
-  line-height: 1;
-  &:hover {
-    color: white;
-    text-decoration: none;
-  }
-}
+// 
+// #logo {
+//   float: left;
+//   margin-right: 10px;
+//   font-size: 1.7em;
+//   color: white;
+//   text-transform: uppercase;
+//   letter-spacing: -1px;
+//   padding-top: 9px;
+//   font-weight: bold;
+//   line-height: 1;
+//   &:hover {
+//     color: white;
+//     text-decoration: none;
+//   }
+// }
 
 /* footer */
 
@@ -115,4 +115,16 @@ footer {
   width: 100%;
   margin-top: 45px;
   @include box_sizing;
+}
+
+.gravatar {
+  border-radius: 4px;
+  box-shadow: 2px 2px 2px #888888;
+  border: 1px solid rgb(114, 114, 114);
+  display: block;
+  float: left;
+  margin-right: 20px;
+}
+.clear {
+  clear:both;
 }
