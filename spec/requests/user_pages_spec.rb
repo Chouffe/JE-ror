@@ -12,12 +12,12 @@ describe "User Pages" do
     end
 
     describe "Should create a user" do
-      let(:submit) { "Sign up" }
+      let(:submit) { "Enregister" }
       before do
         visit new_user_registration_path
         fill_in "Email", with: "user@example.com"
-        fill_in "Password", with: "topsecret"
-        fill_in "Password confirmation", with: "topsecret"
+        fill_in "Mot de passe", with: "topsecret"
+        fill_in "Confirmation du mot de passe", with: "topsecret"
       end
       it "Should create a user" do
         expect { click_button submit }.to change(User, :count).by(1)
@@ -32,12 +32,13 @@ describe "User Pages" do
       it { should have_content("Connexion") }
     end
     describe "User signin" do
+      let(:submit) { "Se connecter" }
       let(:user) { FactoryGirl.create(:user) }
       before do
         visit new_user_session_path
         fill_in "Email", with: user.email
-        fill_in "Password", with: user.password
-        click_button "Sign in"
+        fill_in "Mot de passe", with: user.password
+        click_button submit
       end
       it { should have_content("Lorem Ipsum") }
     end
