@@ -11,6 +11,10 @@ u = User.new :email => ENV["GMAIL_USERNAME"], :password => 'topsecret', :passwor
 u.skip_confirmation!
 u.save
 puts 'User Chuck Norris created'
+u = User.new :email => 'a@a.a', :password => 'topsecret', :password_confirmation => 'topsecret', :first_name => 'Example', :last_name => 'User'
+u.skip_confirmation!
+u.save
+puts 'User Example User created'
 u = User.new :email => ENV["ADMIN_EMAIL"], :password => ENV["ADMIN_PASSWORD"], :password_confirmation => ENV["ADMIN_PASSWORD"], :first_name => ENV["ADMIN_USERNAME"], :last_name => ENV["ADMIN_USERNAME"], :admin => true
 u.skip_confirmation!
 u.save

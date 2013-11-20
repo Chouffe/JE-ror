@@ -12,7 +12,9 @@
     </div>
     <% if current_user.admin? %>
     <div class="admin">
-      <a href="#" class="btn btn-danger"><i class="icon-white icon-remove"></i></a>
+      <%= link_to 'Delete', user_delete_path(:id => @user.id), :method => :delete, data: { confirm: 'You sure?' },
+        :title => "Delete #{@user.full_name}", :class => "btn btn-danger" %>
+      <!-- <a href="#" class="btn btn-danger"><i class="icon-white icon-remove"></i></a> -->
     </div>
   <% end %>
   </div>

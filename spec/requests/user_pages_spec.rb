@@ -65,6 +65,7 @@ describe "User Pages" do
         end
         it { should have_title("Membres") }
         it { should have_content("Membres") }
+        it { should_not have_link("delete") }
 
         describe "pagination" do
 
@@ -90,6 +91,51 @@ describe "User Pages" do
       #   end
       #   pending "TODO"
       # end
+    end
+  end
+
+  describe "delete page" do
+    describe "when signed in" do
+      describe "as a regular user" do
+        let(:user) { FactoryGirl.create(:user) }
+        let(:submit) { "Se connecter" }
+        before do
+          visit new_user_session_path
+          fill_in "Email", with: user.email
+          fill_in "Mot de passe", with: user.password
+          click_button submit
+        end
+
+        describe "Flash Message" do
+          before { delete user_delete_path, :params => {:id => 1} }
+          it { should have_selector('div.alert.alert-notice') }
+        end
+        
+      end
+      describe "as an admin" do
+        let(:admin) { FactoryGirl.create(:admin) }
+        let(:user) { FactoryGirl.create(:user) }
+        let(:submit) { "Se connecter" }
+        before do
+          visit new_user_session_path
+          fill_in "Email", with: admin.email
+          fill_in "Mot de passe", with: admin.password
+          click_button submit
+        end
+
+        it "should remove one user" do
+          expect { delete user_delete_path, :params => {:id => user.id } }.to change(User, :count).by(1)
+        end
+        describe "should not be able to remove himself" do
+          before { delete user_delete_path, :params => {:id => admin.id} }
+          it { should have_selector('div.alert.alert-notice') }
+        end
+        describe "Flash Message" do
+          before { delete user_delete_path, :params => {:id => user.id} }
+          it { should have_selector('div.alert.alert-notice') }
+        end
+
+      end
     end
   end
 
