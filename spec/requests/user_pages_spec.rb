@@ -61,23 +61,35 @@ describe "User Pages" do
           fill_in "Email", with: user.email
           fill_in "Mot de passe", with: user.password
           click_button submit
-          visit users_index_path
+          visit user_index_path
         end
-        pending "TODO"
+        it { should have_title("Membres") }
+        it { should have_content("Membres") }
+
+        describe "pagination" do
+
+          it { should have_selector('div.pagination') }
+
+          it "should list each user" do
+            User.paginate(page: 1).each do |user|
+              expect(page).to have_selector('li', text: user.full_name)
+            end
+          end
+        end  
       end
 
-      describe "as an admin" do
-        let(:admin) { FactoryGirl.create(:admin) }
-        let(:submit) { "Se connecter" }
-        before do
-          visit new_user_session_path
-          fill_in "Email", with: admin.email
-          fill_in "Mot de passe", with: admin.password
-          click_button submit
-          visit users_index_path
-        end
-        pending "TODO"
-      end
+      # describe "as an admin" do
+      #   let(:admin) { FactoryGirl.create(:admin) }
+      #   let(:submit) { "Se connecter" }
+      #   before do
+      #     visit new_user_session_path
+      #     fill_in "Email", with: admin.email
+      #     fill_in "Mot de passe", with: admin.password
+      #     click_button submit
+      #     visit user_index_path
+      #   end
+      #   pending "TODO"
+      # end
     end
   end
 

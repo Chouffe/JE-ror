@@ -8,4 +8,7 @@ class UsersController < ApplicationController
       redirect_to root_path
     end
   end
+  def index
+    @users = User.paginate(page: params[:page])
+  end
 end
