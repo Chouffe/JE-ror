@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   has_attached_file :cv,
                     :url  => "/assets/products/:id/:style/:basename.:extension",
                     :path => ":rails_root/public/assets/products/:id/:style/:basename.:extension"
+  acts_as_messageable
 
   # validates_attachment_presence :cv
   validates_attachment_size :cv, :less_than => 5.megabytes
@@ -17,4 +18,13 @@ class User < ActiveRecord::Base
   def full_name
     self.first_name.capitalize + " " + self.last_name.capitalize
   end
+
+  # MailBoxer settings
+  def name
+    full_name
+  end
+  def mailboxer_email(object)
+    self.email
+  end
+
 end

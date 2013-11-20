@@ -1,0 +1,16 @@
+<div class="well" style="max-width: 200px; padding: 8px 0;">
+  <ul class="nav nav-list">
+    <li class="nav-header">Messagerie</li>
+    <li <% if params[:action] == "inbox" %>class="active"<% end %>>
+      <%= link_to mailbox_inbox_path do %><i class="icon-inbox"></i> Boîte de réception <%= mail_badge current_user %><% end %>
+    </li>
+    <li <% if params[:action] == "sentbox" %>class="active"<% end %>>
+      <%= link_to mailbox_sentbox_path do %><i class="icon-arrow-right"></i> Envoyés<% end %>
+    </li>
+    <li class="divider"></li>
+    <li <% if params[:action] == "trash" %>class="active"<% end %>>
+      <%= link_to mailbox_trash_path do %><i class="icon-trash"></i> Corbeille<% end %>
+    </li>
+  </ul>
+</div>
+

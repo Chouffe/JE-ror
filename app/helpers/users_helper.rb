@@ -9,4 +9,15 @@ module UsersHelper
     image_tag(gravatar_url, alt: user.full_name, class: cl)
   end
 
+  def mail_badge(user)
+    n = user.mailbox.inbox({:read => false}).count
+    css = "badge"
+    if n > 10
+      css += " badge-important"
+    elsif n > 0
+      css += " badge-info"
+    end
+    # content_tag(:span, content_tag(:span, "#{n}", class: css, :style => ("float:right;")), :style => ("width:50px;"))
+    content_tag(:span, "#{n}", class: css)
+  end
 end
