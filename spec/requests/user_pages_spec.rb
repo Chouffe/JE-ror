@@ -46,17 +46,53 @@ describe "User Pages" do
     end
   end
 
+  describe "index page" do
+
+    before(:all) { 30.times { FactoryGirl.create(:user) } }
+    after(:all)  { User.delete_all }
+
+    describe "when signed in" do
+
+      describe "as a regular user" do
+        let(:user) { FactoryGirl.create(:user) }
+        let(:submit) { "Se connecter" }
+        before do
+          visit new_user_session_path
+          fill_in "Email", with: user.email
+          fill_in "Mot de passe", with: user.password
+          click_button submit
+          visit users_index_path
+        end
+        pending "TODO"
+      end
+
+      describe "as an admin" do
+        let(:admin) { FactoryGirl.create(:admin) }
+        let(:submit) { "Se connecter" }
+        before do
+          visit new_user_session_path
+          fill_in "Email", with: admin.email
+          fill_in "Mot de passe", with: admin.password
+          click_button submit
+          visit users_index_path
+        end
+        pending "TODO"
+      end
+    end
+  end
+
+
   describe "show page" do
 
     describe "when not signed in" do
       let(:user) { FactoryGirl.create(:user) }
       describe "Valid User" do
-        before { visit users_show_path(user) }
+        before { visit user_show_path(user) }
         it { should have_content("Connexion") }
       end
 
       describe "Invalid User" do
-        before { visit users_show_path(1) }
+        before { visit user_show_path(1) }
         it { should_not have_content(user.full_name) }
         it { should have_content("Connexion") }
       end
@@ -73,13 +109,13 @@ describe "User Pages" do
           click_button submit
         end
         describe "Valid User" do
-          before { visit users_show_path(user) }
+          before { visit user_show_path(user) }
           it { should have_selector('h1', text: user.full_name) }
           it { should_not have_selector('div.admin') }
         end
 
         describe "Invalid User" do
-          before { visit users_show_path(100) }
+          before { visit user_show_path(100) }
           it { should_not have_selector('h1', text: user.full_name) }
           it { should have_selector('div.alert.alert-notice') }
         end
@@ -93,7 +129,7 @@ describe "User Pages" do
           fill_in "Mot de passe", with: admin.password
           click_button submit
         end
-        before { visit users_show_path(admin) }
+        before { visit user_show_path(admin) }
         it { should have_selector('div.admin') }
       end
     end

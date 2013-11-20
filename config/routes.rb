@@ -3,7 +3,7 @@ JE::Application.routes.draw do
   root "static_pages#home"
   get "static_pages/help"
   match '/contact', to: 'static_pages#contact', via: 'get'
-  get '/users/:id', to: 'users#show', as: 'users_show'
+  get '/users/:id', to: 'users#show', as: 'user_show'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
