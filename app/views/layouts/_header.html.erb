@@ -10,14 +10,10 @@
       <div class="nav-collapse">
         <ul class="nav">
           <li class="<%= 'active' if params[:controller] == 'static_pages' %>"><a href="/">Accueil</a></li>
-          <% unless user_signed_in? %>
-            <li class="<%= 'active' if params[:controller] == 'devise/registrations'%>"><%= link_to "Inscription", new_user_registration_path %></li>
-            <li class="<%= 'active' if params[:controller] == 'devise/sessions'%>"><%= link_to "Connexion", new_user_session_path %></li>
-          <% end %>
         </ul>
         <ul class="nav pull-right">
-          <li><%= gravatar_for current_user, size: 30, class: "gravatar-nav" %></li>
           <% if user_signed_in? %>
+          <li><%= gravatar_for current_user, size: 30, class: "gravatar-nav" %></li>
             <li class="dropdown <%= 'active' if ['devise/registrations', 'users'].include? params[:controller] %>">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= current_user.full_name %> <b class="caret"></b></a>
               <ul class="dropdown-menu">
@@ -28,6 +24,9 @@
                 <li><%= link_to(destroy_user_session_path, method: "delete") do %><i class="icon-off"></i> Déconnexion<% end %></li>
               </ul>
             </li>
+          <% else %>
+            <li class="<%= 'active' if params[:controller] == 'devise/registrations'%>"><%= link_to "Inscription", new_user_registration_path %></li>
+            <li class="<%= 'active' if params[:controller] == 'devise/sessions'%>"><%= link_to "Connexion", new_user_session_path %></li>
           <% end %>
         </ul>
         <form class="navbar-search pull-left" action="">

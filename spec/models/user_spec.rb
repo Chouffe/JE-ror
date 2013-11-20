@@ -28,5 +28,9 @@ describe User do
     before { @user.save }
     it { should be_valid }
   end
+  describe "as an admin" do
+    before { @user = FactoryGirl.create(:admin) }
+    it { should be_admin }
+  end
 
 end

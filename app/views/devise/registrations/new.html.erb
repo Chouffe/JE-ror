@@ -7,13 +7,13 @@
       <%= devise_error_messages! %>
 
       <%= f.label :first_name, "Prénom" %>
-      <%= f.text_field :first_name %>
+      <%= f.text_field :first_name, :autofocus => true %>
 
       <%= f.label :last_name, "Nom" %>
       <%= f.text_field :last_name %>
 
       <%= f.label :email %>
-      <%= f.email_field :email, :autofocus => true %>
+      <%= f.email_field :email %>
 
       <%= f.label :password, "Mot de passe" %>
       <%= f.password_field :password %>

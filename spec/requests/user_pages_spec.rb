@@ -46,6 +46,59 @@ describe "User Pages" do
     end
   end
 
+  describe "show page" do
+
+    describe "when not signed in" do
+      let(:user) { FactoryGirl.create(:user) }
+      describe "Valid User" do
+        before { visit users_show_path(user) }
+        it { should have_content("Connexion") }
+      end
+
+      describe "Invalid User" do
+        before { visit users_show_path(1) }
+        it { should_not have_content(user.full_name) }
+        it { should have_content("Connexion") }
+      end
+    end
+
+    describe "when signed in" do
+      describe "as a regular user" do
+        let(:user) { FactoryGirl.create(:user) }
+        let(:submit) { "Se connecter" }
+        before do
+          visit new_user_session_path
+          fill_in "Email", with: user.email
+          fill_in "Mot de passe", with: user.password
+          click_button submit
+        end
+        describe "Valid User" do
+          before { visit users_show_path(user) }
+          it { should have_selector('h1', text: user.full_name) }
+          it { should_not have_selector('div.admin') }
+        end
+
+        describe "Invalid User" do
+          before { visit users_show_path(100) }
+          it { should_not have_selector('h1', text: user.full_name) }
+          it { should have_selector('div.alert.alert-notice') }
+        end
+      end
+      describe "as an admin" do
+        let(:admin) { FactoryGirl.create(:admin) }
+        let(:submit) { "Se connecter" }
+        before do
+          visit new_user_session_path
+          fill_in "Email", with: admin.email
+          fill_in "Mot de passe", with: admin.password
+          click_button submit
+        end
+        before { visit users_show_path(admin) }
+        it { should have_selector('div.admin') }
+      end
+    end
+  end
+
   # describe "Edit User Page" do
   #   before do
   #     @request.env["devise.mapping"] = Devise.mappings[:user]
