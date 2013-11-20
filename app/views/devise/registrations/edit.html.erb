@@ -4,8 +4,8 @@
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :multipart => true, :method => :put }) do |f| %>
   <div class="row-fluid">
     <div class="span4">
-      <h4>Image de profile</h4>
-      <a href="http://gravatar.com/emails"><%= gravatar_for current_user, size: 220 %></a>
+      <h4>Image de profil</h4>
+      <a href="http://gravatar.com/emails"><%= gravatar_for current_user, size: 220, class: "gravatar" %></a>
       <div class="clear"></div>
     </div>
     <div class="span4">

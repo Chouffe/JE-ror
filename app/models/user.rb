@@ -15,6 +15,6 @@ class User < ActiveRecord::Base
   validates_attachment_content_type :cv, :content_type => ['application/pdf'], :message => "only pdf files are allowed" 
 
   def full_name
-    self.first_name + " " + self.last_name
+    self.first_name.capitalize + " " + self.last_name.capitalize
   end
 end
