@@ -1,22 +1,33 @@
 <% provide(:title, @user.full_name) %>
 <h1><%= @user.full_name %></h1>
 
-<div class="row">
-  <div class="span8 offset1">
-    <%= gravatar_for @user, size: 220, class: "gravatar" %>
-    <div class="clear"></div>
-    <div class="btn-group">
-      <a href="#" class="btn"><i class="icon-envelope"></i></a>
-      <a href="#" class="btn"><i class="icon-comment"></i></a>
-      <a href="#" class="btn"><i class="icon-thumbs-up"></i></a>
-      <a href="#" class="btn"><i class="icon-thumbs-down"></i></a>
+<div class="row-fluid">
+  <div class="span3">
+    <div class="well" style="max-width: 330px; padding: 8px 0;">
+      <ul class="nav nav-list">
+        <li class="nav-header">Actions</li>
+        <li>
+          <%= link_to '#' do %><i class="icon-envelope"></i> Envoyer un message<% end %>
+        </li>
+        <li>
+          <%= link_to '#' do %><i class="icon-comment"></i> Laisser une référence<% end %>
+        </li>
+        <li>
+          <%= link_to '#' do %><i class="icon-list"></i> Voir ses bateaux<% end %>
+        </li>
+        <% if current_user.admin? %>
+        <li class="divider"></li>
+        <li>
+          <%= link_to user_delete_path(:id => @user.id), :method => :delete, data: { confirm: 'You sure?' },
+              :title => "Delete #{@user.full_name}" do  %>
+                <i class="icon-remove"></i> Supprimer
+          <% end %>
+        </li>
+        <% end %>
+      </ul>
     </div>
-    <% if current_user.admin? %>
-    <div class="admin">
-      <%= link_to 'Delete', user_delete_path(:id => @user.id), :method => :delete, data: { confirm: 'You sure?' },
-        :title => "Delete #{@user.full_name}", :class => "btn btn-danger" %>
-      <!-- <a href="#" class="btn btn-danger"><i class="icon-white icon-remove"></i></a> -->
-    </div>
-  <% end %>
+  </div>
+  <div class="span6 offset1">
+    <%= gravatar_for @user, size: 220, class: "img-polaroid" %>
   </div>
 </div>
