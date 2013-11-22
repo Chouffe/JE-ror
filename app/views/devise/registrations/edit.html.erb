@@ -1,63 +1,41 @@
-<%= provide(:title, "Mon compte") %>
-<h1>Mon Compte</h1>
-      <%# <%= button_to "<i class='icon-remove'></i> Supprimer mon compte".html_safe, registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete, class: "btn btn-danger btn-small" %>
+<%= render 'users/header' %>
+
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :multipart => true, :method => :put }) do |f| %>
-  <div class="row-fluid">
-    <div class="span4">
-      <h4>Image de profil</h4>
-      <a href="http://gravatar.com/emails"><%= gravatar_for current_user, size: 220, class: "gravatar" %></a>
-      <div class="clear"></div>
+    <div class="row-fluid">
+        <div class="span3">
+            <%= render 'devise/registrations/nav' %>
+        </div>
+        <div class="span5 offset1">
+
+            <%= devise_error_messages! %>
+
+            <%= f.label :first_name, "Prénom", :autofocus => true %>
+            <%= f.text_field :first_name %>
+
+            <%= f.label :last_name, "Nom" %>
+            <%= f.text_field :last_name %>
+
+            <%= f.label :email %>
+            <%= f.email_field :email%>
+
+            <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+                <div>En attente du mail de confirmation<%= resource.unconfirmed_email %></div>
+            <% end %>
+
+            <%= f.label :password, "Nouveau mot de passe" %>
+            <%= f.password_field :password, :autocomplete => "off" %>
+
+            <%= f.label :password_confirmation, "Confirmation du mot de passe" %>
+            <%= f.password_field :password_confirmation %>
+
+
+
+        </div>
+        <div class="span2" style="margin-top:80px;">
+            <div class="input-append">
+                <%= f.password_field :current_password, class: 'span10', :placeholder => "Mot de passe" %>
+                <%= f.submit "Modifier", class: "btn btn-primary" %>
+            </div>
+        </div>
     </div>
-    <div class="span4">
-
-      <%# <%= render 'shared/error_messages' %>
-      <%= devise_error_messages! %>
-
-      <%= f.label :first_name, "Prénom", :autofocus => true %>
-      <%= f.text_field :first_name %>
-
-      <%= f.label :last_name, "Nom" %>
-      <%= f.text_field :last_name %>
-
-      <%= f.label :email %>
-      <%= f.email_field :email%>
-
-
-      <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-        <div>En attente du mail de confirmation<%= resource.unconfirmed_email %></div>
-      <% end %>
-
-
-      <%= f.label :password, "Nouveau mot de passe" %>
-      <%= f.password_field :password, :autocomplete => "off" %>
-
-      <%= f.label :password_confirmation, "Confirmation du mot de passe" %>
-      <%= f.password_field :password_confirmation %>
-
-      <%= f.label :current_password, "Mot de passe actuel" %>
-      <%= f.password_field :current_password %>
-
-
-
-    </div>
-    <div class="span4">
-      <%# <%= link_to "CV uploaded", f.cv.url %>
-      <%= f.label :cv, "CV Nautique" %>
-      <%= f.file_field :cv %>
-    </div>
-  </div>
-  <div class="row-fluid">
-    <div class="span5">
-    </div>
-    <div class="span2">
-      <%= f.submit "Modifier", style: "margin-top:20px;", class: "btn btn-primary btn-large" %>
-      <%# <%= link_to raw("<i class=\"icon-remove icon-white\"></i> "), 
-      <%#     registration_path(resource_name),
-      <%#     class: "btn btn-danger",
-      <%#     data: { :confirm => "Are you sure?" },
-      <%#     method: :delete %>
-    </div>
-    <div class="span5">
-    </div>
-  </div>
 <% end %>

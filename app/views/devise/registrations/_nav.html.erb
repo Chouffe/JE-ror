@@ -1,0 +1,23 @@
+<div class="well" style="max-width: 330px; padding: 8px 0;">
+  <ul class="nav nav-list">
+    <li class="nav-header">Mon Compte</li>
+    <li <% if params[:action] == "edit" %>class="active"<% end %>>
+      <%= link_to edit_user_registration_path do %><i class="icon-inbox"></i> Informations personnelles<% end %>
+    </li>
+    <li <% if params[:action] == "edit_avatar" %> class="active" <% end %>>
+      <%= link_to edit_user_avatar_path do %><i class="icon-picture"></i> Avatar<% end %>
+    </li>
+    <li <% if params[:action] == "edit_cv" %>class="active"<% end %>>
+      <%= link_to edit_user_cv_path do %><i class="icon-file"></i> CV Nautique<% end %>
+    </li>
+    <li <% if params[:action] == "edit_bateaux" %>class="active"<% end %>>
+      <%= link_to edit_user_bateaux_path do %><i class="icon-list"></i> Mes bateaux<% end %>
+    </li>
+    <li class="divider"></li>
+    <li>
+    <%= link_to user_delete_path, method: 'delete', data: { confirm: "You sure?"} do %><i class="icon-remove"></i> Supprimer mon compte<% end %>
+    </li>
+  </ul>
+</div>
+
+

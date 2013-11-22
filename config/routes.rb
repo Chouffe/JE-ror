@@ -13,6 +13,9 @@ JE::Application.routes.draw do
   get '/users/:id', to: 'users#show', as: 'user_show'
   get '/users/', to: 'users#index', as: 'user_index'
   delete '/users/delete', to: 'users#destroy', as: 'user_delete'
+  get '/users/edit/avatar', to: 'users#edit_avatar', as: 'edit_user_avatar'
+  get '/users/edit/cv', to: 'users#edit_cv', as: 'edit_user_cv'
+  get '/users/edit/bateaux', to: 'users#edit_bateaux', as: 'edit_user_bateaux'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

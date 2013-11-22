@@ -1,0 +1,13 @@
+<%= render 'users/header' %>
+
+<div class="row-fluid">
+  <div class="span3">
+    <%= render 'devise/registrations/nav' %>
+  </div>
+  <div class="span5 offset1">
+      <%= gravatar_for current_user, size: 220, class: "img-polaroid" %>
+  </div>
+    <div class="span2">
+      <a class="btn btn-primary btn-large" style="margin-top:80px;" href="http://gravatar.com/emails">Modifier</a>
+    </div>
+</div>

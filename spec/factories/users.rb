@@ -3,7 +3,7 @@ FactoryGirl.define do
     # name 'Test User'
     sequence(:first_name)  { |n| "Person #{n}" }
     sequence(:last_name)  { |n| "Person #{n}" }
-    sequence(:email) { |n| "person_test_#{n}@example.com"}
+    sequence(:email) { |n| "person_db_test_#{n}@example.com"}
     password 'changeme'
     password_confirmation 'changeme'
     # required if the Devise Confirmable module is used

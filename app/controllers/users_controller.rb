@@ -19,6 +19,14 @@ class UsersController < ApplicationController
     redirect_to user_index_path
   end
 
+  def edit_avatar
+  end
+  def edit_cv
+    @user = current_user
+  end
+  def edit_bateaux
+  end
+
   private
 
   def authenticate_admin!

@@ -1,0 +1,26 @@
+<%= render 'users/header' %>
+
+<%= form_for(@user, url: registration_path('user'), :html => { :multipart => true, :method => :put }) do |f| %>
+  <div class="row-fluid">
+    <div class="span3">
+      <%= render 'devise/registrations/nav' %>
+    </div>
+    <div class="span8">
+
+      <div class="alert">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Attention!</strong> Seuls les fichiers au format <strong>PDF</strong> sont acceptés.
+      </div>
+
+      <%= f.label :cv do %>CV Nautique <% if current_user.cv.exists? %><%= link_to current_user.cv.url do %>[<i class="icon-file"></i> PDF]<% end %> <% end %><% end %>
+      <%= f.file_field :cv %>
+
+
+      <div class="input-append">
+        <%= f.password_field :current_password, class: 'span8', :placeholder => "Mot de passe" %>
+        <%= f.submit "Modifier", class: "btn btn-primary" %>
+      </div>
+
+    </div>
+  </div>
+<% end %>

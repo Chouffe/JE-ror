@@ -79,18 +79,6 @@ describe "User Pages" do
         end  
       end
 
-      # describe "as an admin" do
-      #   let(:admin) { FactoryGirl.create(:admin) }
-      #   let(:submit) { "Se connecter" }
-      #   before do
-      #     visit new_user_session_path
-      #     fill_in "Email", with: admin.email
-      #     fill_in "Mot de passe", with: admin.password
-      #     click_button submit
-      #     visit user_index_path
-      #   end
-      #   pending "TODO"
-      # end
     end
   end
 
@@ -139,6 +127,29 @@ describe "User Pages" do
     end
   end
 
+  describe "My account" do
+
+    describe "when signed in" do
+
+      describe "as a regular user" do
+        let(:user) { FactoryGirl.create(:user) }
+        let(:submit) { "Se connecter" }
+        before do
+          visit new_user_session_path
+          fill_in "Email", with: user.email
+          fill_in "Mot de passe", with: user.password
+          click_button submit
+          visit edit_user_registration_path
+        end
+        it { should have_selector('ul.nav.nav-list') }
+        it { should have_content('Informations personnelles') }
+        it { should have_content('CV Nautique') }
+        it { should have_content('Supprimer mon compte') }
+        it { should have_content('Mes bateaux') }
+      end
+    end
+  end
+
 
   describe "show page" do
 
@@ -166,6 +177,7 @@ describe "User Pages" do
           fill_in "Mot de passe", with: user.password
           click_button submit
         end
+
         describe "Valid User" do
           before { visit user_show_path(user) }
           it { should have_selector('h1', text: user.full_name) }
@@ -193,16 +205,4 @@ describe "User Pages" do
     end
   end
 
-  # describe "Edit User Page" do
-  #   before do
-  #     @request.env["devise.mapping"] = Devise.mappings[:user]
-  #     user = FactoryGirl.create(:user)
-  #     user.confirm!
-  #     sign_in user
-  #     visit edit_user_registration_path
-  #     fill_in "Prénom", with: "Jesus"
-  #     click_button submit
-  #   end
-  #   it { should have_content("updated") } 
-  # end
 end
