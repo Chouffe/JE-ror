@@ -1,0 +1,7 @@
+<div id="#reply" style="text-align:center;">
+  <%= form_tag mailbox_reply_path do |f| %>
+    <%= hidden_field_tag :id, @conversation.id %>
+    <%= text_area_tag :body, params[:body], class: "textarea-big" %>
+    <%= submit_tag "Répondre", class: "btn btn-primary" %>
+  <% end %>
+</div>

@@ -3,8 +3,9 @@ JE::Application.routes.draw do
   get "mailbox/sentbox"
   get "mailbox/show/:id", to: 'mailbox#show', as: 'mailbox_show'
   delete "mailbox/destroy", to: 'mailbox#destroy', as: 'mailbox_destroy'
+  put "mailbox/undestroy", to: 'mailbox#undestroy', as: 'mailbox_undestroy'
   get "mailbox/trash"
-  post "mailbox/repply", to: 'mailbox#reply', as: 'mailbox_reply'
+  post "mailbox/reply", to: 'mailbox#reply', as: 'mailbox_reply'
   devise_for :users
   root "static_pages#home"
   get "static_pages/help"

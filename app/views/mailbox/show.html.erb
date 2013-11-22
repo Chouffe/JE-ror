@@ -8,25 +8,30 @@
   </div>
   <div class="span7">
     <div class="btn-group" style="float:right;">
-      <%= link_to mailbox_destroy_path(:id => @conversation.id), :class => 'btn', :method => :delete do %>
-        <i class="icon-trash"></i>
+      <% if @conversation.is_trashed? current_user %>
+        <%= link_to mailbox_undestroy_path(:id => @conversation.id), :class => 'btn', :method => :put, :id => 'untrash' do %>
+          <i class="icon-refresh"></i>
+        <% end %>
+      <% else %>
+        <%= link_to mailbox_destroy_path(:id => @conversation.id), :class => 'btn', :method => :delete, :id => 'trash' do %>
+          <i class="icon-trash"></i>
+        <% end %>
+        <a href="#reply" id="reply" class="btn" title="Répondre"><i class="icon-pencil"></i></a>
       <% end %>
-      <a href="#reply" class="btn" title="Répondre"><i class="icon-pencil"></i></a>
     </div>
     <h2 class="conversation-subject">Objet : <%= @subject %> </h2>
     <ul class="conversation">
       <% @receipts.each do |receipt| %>
         <li>
+        <div class="conversation-sender"><%= receipt.message.sender.full_name %></div>
+        <div class="conversation-date"><%= receipt.message.created_at.to_formatted_s(:short) %></div>
         <%= gravatar_for receipt.message.sender, size: 70, class: "gravatar" %> <br />
         <%= receipt.message.body %>
         </li>
       <% end %>
     </ul>
-    <div id="#reply" style="text-align:center;">
-      <%= form_tag mailbox_reply_path do |f| %>
-        <%= text_area_tag :body, params[:body], class: "textarea-big" %>
-        <%= submit_tag "Répondre", class: "btn btn-primary" %>
-      <% end %>
+    <% unless @conversation.is_trashed? current_user %>
+      <%= render 'mailbox/reply_form' %>
+    <% end %>
     </div>
-  </div>
 </div>

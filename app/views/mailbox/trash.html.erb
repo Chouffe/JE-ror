@@ -2,8 +2,33 @@
 <h1>Corbeille</h1>
 
 <div class="row-fluid">
-  <div class="span4">
+  <div class="span3">
     <%= render 'mailbox/nav' %>
   </div>
-  <div class="span4">Messages here</div>
+  <div class="span8">
+    <% if @trash.count > 0 %>
+    <table class="table table-condensed">
+      <thead>
+        <tr>
+          <th> # </th>
+          <th>Objet</th>
+          <th>De</th>
+          <th>A</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @trash.each do |conversation| %>
+          <tr <% if conversation.is_read? current_user %> class="message-read"<% end %>>
+            <td><%= conversation_messages_badge(conversation, current_user) %></td>
+              <td><%= link_to conversation.subject, mailbox_show_path(conversation) %></td>
+              <td><%= link_to conversation.last_sender.full_name, user_show_path(conversation.last_sender) %></td>
+              <td><%= gravatar_for conversation.last_sender, size: 18, class: "gravatar-inbox" %><%= conversation.created_at %></td>
+            </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <% else %>
+      <span>Aucun message supprimé</span>
+    <% end %>
+  </div>
 </div>

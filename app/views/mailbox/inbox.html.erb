@@ -6,7 +6,8 @@
     <%= render 'mailbox/nav' %>
   </div>
   <div class="span8">
-    <table class="table table-condensed table-striped">
+    <% if @inbox.count > 0 %>
+    <table class="table table-condensed">
       <thead>
         <tr>
           <th> # </th>
@@ -17,14 +18,17 @@
       </thead>
       <tbody>
         <% @inbox.each do |conversation| %>
-            <tr>
-              <td></td>
+          <tr <% if conversation.is_read? current_user %> class="message-read"<% end %>>
+            <td><%= conversation_messages_badge(conversation, current_user) %></td>
               <td><%= link_to conversation.subject, mailbox_show_path(conversation) %></td>
               <td><%= link_to conversation.last_sender.full_name, user_show_path(conversation.last_sender) %></td>
-              <td><%= conversation.created_at %></td>
+              <td><%= gravatar_for conversation.last_sender, size: 18, class: "gravatar-inbox" %><%= conversation.created_at.to_formatted_s(:short) %></td>
             </tr>
         <% end %>
       </tbody>
     </table>
+    <% else %>
+      <span>Aucun message</span>
+    <% end %>
   </div>
 </div>
