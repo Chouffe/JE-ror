@@ -10,6 +10,17 @@ class MailboxController < ApplicationController
     redirect_to mailbox_show_path(conversation)
   end
 
+  def write
+    @user = User.find(params[:id])
+  end
+
+  def new
+    user = User.find(params[:to])
+    current_user.send_message(user, params[:body], params[:subject])
+    flash[:notice] = "Message envoyé à #{user.full_name}"
+    redirect_to mailbox_show_path(current_user.mailbox.sentbox.last)
+  end
+
   def inbox
     @inbox = current_user.mailbox.inbox
   end

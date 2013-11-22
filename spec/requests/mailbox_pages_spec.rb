@@ -33,6 +33,39 @@ describe "Mailbox Pages" do
     it { should have_content("Corbeille") }
   end
 
+  describe "Write new message" do
+    before do
+      visit user_show_path(sender.id)
+      click_link('Envoyer un message')
+    end
+    it { should have_content(sender.full_name) }
+    it { should have_selector('textarea') }
+    it { should have_title('Nouveau message') }
+    it { should have_content('Nouveau message') }
+
+    # FIXME
+    # describe "send message" do
+    #   let(:message_subject) { "Subject" }
+    #   let(:message_body) { "Body" }
+    #   let(:submit) { "send" }
+    #   before do
+    #     fill_in "subject", with: message_subject
+    #     fill_in "body", with: message_body
+    #     page.find("#send").click
+    #   end
+    #   it { should have_content(message_subject) }
+    #   it { should have_content(message_body) }
+    # end
+
+    describe "should not be able to send a message to himself" do
+      before do
+        visit user_show_path(receiver.id)
+      end
+      it { should_not have_link('Envoyer un message') }
+    end
+  end
+
+
   describe "Sendbox" do
     before { visit mailbox_sentbox_path }
     it { should have_title("Envoyés") }

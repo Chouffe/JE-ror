@@ -1,0 +1,26 @@
+<% provide(:title, "Nouveau message") %>
+<h1>Nouveau message</h1>
+
+<div class="row-fluid">
+  <div class="span3">
+    <%= render 'mailbox/nav' %>
+  </div>
+  <div class="span8">
+    <div id="#write">
+      <%= form_tag mailbox_new_path do |f| %>
+        <div class="input-prepend">
+          <span class="add-on"><i class="icon-user"></i></span>
+          <span class="input-large uneditable-input">A : <%= @user.full_name %></span>
+        </div>
+        <br />
+        <%= hidden_field_tag :to, @user.id %>
+        <div class="input-prepend">
+          <span class="add-on"><i class="icon-envelope"></i></span>
+          <%= text_field_tag :subject, params[:subject], :class => "input-large", :placeholder => "Objet du message" %>
+        </div>
+        <%= text_area_tag :body, params[:body], class: "textarea-big", placeholder: "Message" %>
+        <%= submit_tag "Envoyer", class: "btn btn-primary", id: "send" %>
+      <% end %>
+    </div>
+  </div>
+</div>

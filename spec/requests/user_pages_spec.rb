@@ -190,6 +190,7 @@ describe "User Pages" do
           it { should have_selector('div.alert.alert-notice') }
         end
       end
+
       describe "as an admin" do
         let(:admin) { FactoryGirl.create(:admin) }
         let(:submit) { "Se connecter" }
@@ -200,7 +201,7 @@ describe "User Pages" do
           click_button submit
         end
         before { visit user_show_path(admin) }
-        it { should have_selector('div.admin') }
+        it { should have_content('Supprimer') }
       end
     end
   end

@@ -6,6 +6,8 @@ JE::Application.routes.draw do
   put "mailbox/undestroy", to: 'mailbox#undestroy', as: 'mailbox_undestroy'
   get "mailbox/trash"
   post "mailbox/reply", to: 'mailbox#reply', as: 'mailbox_reply'
+  get 'mailbox/write/:id', to: 'mailbox#write', as: 'mailbox_write'
+  post 'mailbox/new', to: 'mailbox#new', as: 'mailbox_new'
   devise_for :users
   root "static_pages#home"
   get "static_pages/help"

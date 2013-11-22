@@ -6,9 +6,11 @@
     <div class="well" style="max-width: 330px; padding: 8px 0;">
       <ul class="nav nav-list">
         <li class="nav-header">Actions</li>
+        <% if current_user != @user %>
         <li>
-          <%= link_to '#' do %><i class="icon-envelope"></i> Envoyer un message<% end %>
+          <%= link_to mailbox_write_path(@user) do %><i class="icon-envelope"></i> Envoyer un message<% end %>
         </li>
+        <% end %>
         <li>
           <%= link_to '#' do %><i class="icon-comment"></i> Laisser une référence<% end %>
         </li>
